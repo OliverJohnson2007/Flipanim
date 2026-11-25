@@ -1,0 +1,6 @@
+{
+  "name": "Flipbook Studio '95",
+  "description": "A faithful Windows 95 frame-by-frame flipbook animation drawing studio with drawing tools, timeline filmstrip, onion skinning, retro sounds, and GIF/WebM export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
