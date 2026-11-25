@@ -669,6 +669,95 @@ export default function App() {
     updateActiveThumbnail();
   }, [saveUndoSnapshot, updateActiveThumbnail]);
 
+  // Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) {
+          handleRedo();
+        } else {
+          handleUndo();
+        }
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault();
+        handleRedo();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        handleSelectAll();
+      } else if (e.key === 'Enter' || e.key === 'Escape') {
+        if (selectionRef.current.isActive) {
+          e.preventDefault();
+          commitSelection();
+        }
+      } else if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selectionRef.current.isActive) {
+          e.preventDefault();
+          handleDeleteSelection();
+        }
+      } else if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+        if (selectionRef.current.isActive) {
+          e.preventDefault();
+          handleNudgeSelection(e.key, e.shiftKey ? 5 : 1);
+        }
+      } else if (e.code === 'Space') {
+        e.preventDefault();
+        if (selectionRef.current.isActive) {
+          commitSelection();
+        }
+        setIsPlaying((p) => !p);
+        soundFx.playClick();
+      } else if (e.key === '[') {
+        e.preventDefault();
+        if (selectionRef.current.isActive) commitSelection();
+        setActiveFrameIndex((idx) => Math.max(0, idx - 1));
+        soundFx.playClick();
+      } else if (e.key === ']') {
+        e.preventDefault();
+        if (selectionRef.current.isActive) commitSelection();
+        setActiveFrameIndex((idx) => Math.min(frames.length - 1, idx + 1));
+        soundFx.playClick();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        soundFx.playClick();
+        if (selectionRef.current.isActive) commitSelection();
+        setNewCanvasDialogOpen(true);
+      } else if (e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        if (selectionRef.current.isActive) commitSelection();
+        handleAddFrame();
+      } else if (e.key.toLowerCase() === 'd') {
+        e.preventDefault();
+        if (selectionRef.current.isActive) commitSelection();
+        handleDuplicateFrame();
+      } else if (e.key.toLowerCase() === 'b') {
+        changeTool('brush');
+      } else if (e.key.toLowerCase() === 'e') {
+        changeTool('eraser');
+      } else if (e.key.toLowerCase() === 'h' || e.key.toLowerCase() === 'm') {
+        changeTool('hand');
+      } else if (e.key.toLowerCase() === 'o') {
+        setOnionSkinEnabled((o) => !o);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    handleUndo,
+    handleRedo,
+    frames.length,
+    handleSelectAll,
+    commitSelection,
+    handleDeleteSelection,
+    handleNudgeSelection,
+    changeTool,
+    handleAddFrame,
+    handleDuplicateFrame,
+  ]);
+
   // Pointer drawing handlers
   const getCanvasCoords = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = mainCanvasRef.current;
