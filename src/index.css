@@ -8,168 +8,235 @@
   }
 
   body {
-    font-family: 'DM Sans', Tahoma, 'Segoe UI', sans-serif;
-    background-color: #120824;
-    color: #fff4fb;
+    font-family: Tahoma, 'MS Sans Serif', 'Pixelify Sans', sans-serif;
+    background-color: #008080;
+    color: #000000;
+  }
+
+  input,
+  textarea {
+    user-select: text;
+    -webkit-user-select: text;
   }
 }
 
-.font-vice-display {
-  font-family: 'Barlow Condensed', Impact, sans-serif;
+@layer components {
+  .font-retro-pixel {
+    font-family: 'Pixelify Sans', 'MS Sans Serif', Tahoma, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Classic Windows 95 Teal Desktop with subtle 90s CRT dither pattern */
+  .retro-desktop-bg {
+    background-color: #008080;
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0),
+      radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 0);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+  }
+
+  /* Authentic Windows 95 3D Chiseled Bevel System */
+  .win-window {
+    background-color: #c0c0c0;
+    color: #000000;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+      inset 1px 1px 0px #dfdfdf,
+      inset -1px -1px 0px #808080,
+      4px 4px 0px rgba(0, 0, 0, 0.35);
+  }
+
+  .win-outset {
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px #808080;
+  }
+
+  .win-outset-thin {
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+  }
+
+  .win-inset {
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
+  }
+
+  .win-inset-deep {
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0px #000000, inset -1px -1px 0px #dfdfdf;
+  }
+
+  .win-button {
+    background-color: #c0c0c0;
+    color: #000000;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px #808080;
+    cursor: pointer;
+    transition: background-color 100ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .win-button:hover:not(:disabled) {
+    background-color: #cacaca;
+  }
+
+  .win-button:disabled {
+    color: #808080;
+    text-shadow: 1px 1px 0px #ffffff;
+    cursor: not-allowed;
+  }
+
+  /* Classic 90s Pressed + MS Paint 50% Dithered Active State */
+  .win-button:active:not(:disabled),
+  .win-button.active {
+    background-color: #dcdcdc;
+    background-image:
+      linear-gradient(45deg, #c0c0c0 25%, transparent 25%),
+      linear-gradient(-45deg, #c0c0c0 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #c0c0c0 75%),
+      linear-gradient(-45deg, transparent 75%, #c0c0c0 75%);
+    background-size: 2px 2px;
+    background-position: 0 0, 0 1px, 1px -1px, -1px 0;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 1px 1px 0px #808080, inset -1px -1px 0px #dfdfdf;
+    color: #000000;
+    transform: translate(1px, 1px);
+  }
+
+  .win-button:focus-visible {
+    outline: 1px dotted #000000;
+    outline-offset: -4px;
+  }
+
+  .win-titlebar {
+    background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid #808080;
+  }
+
+  .win-titlebar.inactive {
+    background: linear-gradient(90deg, #808080 0%, #b5b5b5 100%);
+    color: #dfdfdf;
+    text-shadow: none;
+  }
+
+  /* Classic 90s 35mm Filmstrip Sprocket Track */
+  .filmstrip-track {
+    background-color: #1f1f1f;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 6px,
+        #dcdcdc 6px,
+        #dcdcdc 12px,
+        transparent 12px,
+        transparent 18px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 6px,
+        #dcdcdc 6px,
+        #dcdcdc 12px,
+        transparent 12px,
+        transparent 18px
+      );
+    background-size: 18px 4px, 18px 4px;
+    background-position: 0 3px, 0 calc(100% - 3px);
+    background-repeat: repeat-x;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* Classic Windows 95 Segmented Navy Progress Bar */
+  .win-progress-segment {
+    width: 10px;
+    height: 16px;
+    background-color: #000080;
+    margin-right: 2px;
+  }
+
+  /* Ultra-subtle optional CRT scanline sheen */
+  .retro-crt-overlay {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0px,
+      rgba(255, 255, 255, 0) 2px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+  }
 }
 
-.font-mono {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Retro GTA 6 / Vice City Bevel System */
-.win-outset {
-  border-top: 2px solid #8e63c9;
-  border-left: 2px solid #8e63c9;
-  border-right: 2px solid #080312;
-  border-bottom: 2px solid #080312;
-  box-shadow: inset 1px 1px 0px #3f2866, inset -1px -1px 0px #120824;
-}
-
-.win-outset-thin {
-  border-top: 1px solid #6c49a3;
-  border-left: 1px solid #6c49a3;
-  border-right: 1px solid #090414;
-  border-bottom: 1px solid #090414;
-}
-
-.win-inset {
-  border-top: 2px solid #070310;
-  border-left: 2px solid #070310;
-  border-right: 2px solid #5c3e8c;
-  border-bottom: 2px solid #5c3e8c;
-  box-shadow: inset 1px 1px 0px #040108, inset -1px -1px 0px #2a1847;
-}
-
-.win-inset-deep {
-  border-top: 2px solid #05010a;
-  border-left: 2px solid #05010a;
-  border-right: 2px solid #6c49a3;
-  border-bottom: 2px solid #6c49a3;
-  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.7);
-}
-
-.win-button {
-  background-color: #291945;
-  border-top: 2px solid #7f58ba;
-  border-left: 2px solid #7f58ba;
-  border-right: 2px solid #090314;
-  border-bottom: 2px solid #090314;
-  box-shadow: inset 1px 1px 0px #412a6b, inset -1px -1px 0px #170d2b;
-  color: #f8efff;
-  cursor: pointer;
-  transition: background-color 120ms cubic-bezier(0.16, 1, 0.3, 1), border-color 120ms ease;
-}
-
-.win-button:hover:not(:disabled) {
-  background-color: #38235c;
-  border-top-color: #ff66b2;
-  border-left-color: #ff66b2;
-}
-
-.win-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.win-button:active:not(:disabled),
-.win-button.active {
-  background-color: #160c29;
-  border-top: 2px solid #05010a;
-  border-left: 2px solid #05010a;
-  border-right: 2px solid #00e5ff;
-  border-bottom: 2px solid #00e5ff;
-  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.75);
-  color: #00e5ff;
-  padding-top: calc(var(--btn-pt, 2px) + 1px);
-  padding-left: calc(var(--btn-pl, 4px) + 1px);
-}
-
-.win-button:focus-visible {
-  outline: 2px solid #00e5ff;
-  outline-offset: -3px;
-}
-
-.win-titlebar {
-  background: linear-gradient(90deg, #ff2a85 0%, #ff7b54 48%, #7b2cbf 100%);
-  color: #ffffff;
-  font-weight: 700;
-  text-shadow: 1px 1px 0px rgba(18, 8, 36, 0.65);
-  border-bottom: 1px solid #090314;
-}
-
-.win-titlebar.inactive {
-  background: linear-gradient(90deg, #3c2257 0%, #24143b 100%);
-  color: #b7a1d4;
-}
-
-.win-window {
-  background-color: #1c1130;
-  border-top: 2px solid #c77dff;
-  border-left: 2px solid #c77dff;
-  border-right: 2px solid #06020d;
-  border-bottom: 2px solid #06020d;
-  box-shadow:
-    0 18px 48px rgba(4, 1, 10, 0.8),
-    0 0 28px rgba(255, 42, 133, 0.16),
-    inset 1px 1px 0px #4a2d7a,
-    inset -1px -1px 0px #110820;
-}
-
-/* Segmented Vice Sunset Progress Bar */
-.win-progress-segment {
-  width: 10px;
-  height: 16px;
-  background: linear-gradient(180deg, #ff2a85, #ff7b54);
-  margin-right: 2px;
-}
-
-/* Subtle CRT scanline texture for desktop wallpaper only */
-.vice-scanlines {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0px,
-    rgba(255, 255, 255, 0) 2px,
-    rgba(8, 2, 18, 0.22) 3px,
-    rgba(8, 2, 18, 0.22) 4px
-  );
-}
-
-/* Custom scrollbars in Retro Vice style */
+/* Classic 90s Windows 3D Scrollbars */
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #110921;
-  border: 1px solid #2e1b4d;
+  background-color: #dfdfdf;
+  background-image:
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%),
+    linear-gradient(-45deg, #c0c0c0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #c0c0c0 75%),
+    linear-gradient(-45deg, transparent 75%, #c0c0c0 75%);
+  background-size: 2px 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3b245e;
-  border-top: 2px solid #8e63c9;
-  border-left: 2px solid #8e63c9;
-  border-right: 2px solid #070310;
-  border-bottom: 2px solid #070310;
+  background-color: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px #808080;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #4f317d;
+  background-color: #cacaca;
 }
 
 ::-webkit-scrollbar-button {
-  background-color: #2a1847;
-  border-top: 1px solid #7f58ba;
-  border-left: 1px solid #7f58ba;
-  border-right: 1px solid #070310;
-  border-bottom: 1px solid #070310;
-  width: 14px;
-  height: 14px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px #808080;
+  width: 16px;
+  height: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .win-button {
+    transition: none;
+  }
 }

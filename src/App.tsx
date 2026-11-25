@@ -105,6 +105,7 @@ export default function App() {
   const [fillShape, setFillShape] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [showGrid, setShowGrid] = useState(false);
+  const [showCrtScanlines, setShowCrtScanlines] = useState(false);
 
   // Status bar readout
   const [mouseCoords, setMouseCoords] = useState<{ x: number; y: number } | null>(null);
@@ -1269,7 +1270,10 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#008080] font-['Pixelify_Sans',_'MS_Sans_Serif',_Tahoma,_sans-serif] text-xs select-none">
+    <div className="relative w-screen h-screen overflow-hidden retro-desktop-bg text-xs select-none">
+      {showCrtScanlines && (
+        <div className="retro-crt-overlay fixed inset-0 pointer-events-none z-[100]" />
+      )}
       <input
         type="file"
         id="projectFileInput"
@@ -1282,7 +1286,7 @@ export default function App() {
       <div className="absolute top-4 left-4 flex flex-col gap-5 z-0">
         <button
           type="button"
-          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/30 rounded text-center text-white"
+          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/40 hover:outline-1 hover:outline-dotted hover:outline-white/80 text-center text-white"
           onClick={() => {
             soundFx.playClick();
             setNewCanvasDialogOpen(true);
@@ -1291,48 +1295,48 @@ export default function App() {
           }}
           title="Start a new blank animation canvas"
         >
-          <div className="w-10 h-10 flex items-center justify-center text-2xl">📄</div>
-          <span className="text-[11px] leading-tight px-1 bg-[#000080]/60">New Canvas</span>
+          <div className="w-10 h-10 flex items-center justify-center text-2xl drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">📄</div>
+          <span className="font-retro-pixel text-[11px] leading-tight px-1 bg-[#000080]/75">New Canvas</span>
         </button>
 
         <button
           type="button"
-          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/30 rounded text-center text-white"
+          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/40 hover:outline-1 hover:outline-dotted hover:outline-white/80 text-center text-white"
           onClick={() => {
             setIsMinimized(false);
             setIsWindowActive(true);
             soundFx.playClick();
           }}
         >
-          <div className="w-10 h-10 flex items-center justify-center text-2xl">🎬</div>
-          <span className="text-[11px] leading-tight px-1 bg-[#000080]/60">Flipbook Studio</span>
+          <div className="w-10 h-10 flex items-center justify-center text-2xl drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">🎬</div>
+          <span className="font-retro-pixel text-[11px] leading-tight px-1 bg-[#000080]/75">Flipbook Studio</span>
         </button>
 
         <button
           type="button"
-          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/30 rounded text-center text-white"
+          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/40 hover:outline-1 hover:outline-dotted hover:outline-white/80 text-center text-white"
           onClick={() => loadPreset('ball')}
         >
-          <div className="w-10 h-10 flex items-center justify-center text-2xl">⚽</div>
-          <span className="text-[11px] leading-tight px-1 bg-[#000080]/60">Demo: Ball</span>
+          <div className="w-10 h-10 flex items-center justify-center text-2xl drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">⚽</div>
+          <span className="font-retro-pixel text-[11px] leading-tight px-1 bg-[#000080]/75">Demo: Ball</span>
         </button>
 
         <button
           type="button"
-          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/30 rounded text-center text-white"
+          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/40 hover:outline-1 hover:outline-dotted hover:outline-white/80 text-center text-white"
           onClick={() => loadPreset('stickman')}
         >
-          <div className="w-10 h-10 flex items-center justify-center text-2xl">🏃</div>
-          <span className="text-[11px] leading-tight px-1 bg-[#000080]/60">Demo: Stickman</span>
+          <div className="w-10 h-10 flex items-center justify-center text-2xl drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">🏃</div>
+          <span className="font-retro-pixel text-[11px] leading-tight px-1 bg-[#000080]/75">Demo: Stickman</span>
         </button>
 
         <button
           type="button"
-          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/30 rounded text-center text-white"
+          className="flex flex-col items-center w-20 p-1 cursor-pointer hover:bg-[#000080]/40 hover:outline-1 hover:outline-dotted hover:outline-white/80 text-center text-white"
           onClick={() => setHelpDialogOpen(true)}
         >
-          <div className="w-10 h-10 flex items-center justify-center text-2xl">💡</div>
-          <span className="text-[11px] leading-tight px-1 bg-[#000080]/60">Flipbook Tips</span>
+          <div className="w-10 h-10 flex items-center justify-center text-2xl drop-shadow-[1px_1px_0px_rgba(0,0,0,0.8)]">💡</div>
+          <span className="font-retro-pixel text-[11px] leading-tight px-1 bg-[#000080]/75">Flipbook Tips</span>
         </button>
       </div>
 
@@ -1366,9 +1370,9 @@ export default function App() {
             onPointerDown={handleTitlePointerDown}
             onDoubleClick={() => setIsMaximized((m) => !m)}
           >
-            <div className="flex items-center gap-1.5 font-bold tracking-wider text-xs">
+            <div className="flex items-center gap-1.5 font-retro-pixel font-bold tracking-wide text-sm">
               <span className="text-sm">🎬</span>
-              <span>Flipbook Studio - [{frames.length} frames @ {fps}fps]</span>
+              <span>Flipbook Studio '95 — [{frames.length} frames @ {fps}fps]</span>
             </div>
             <div className="flex items-center gap-1 shrink-0" onPointerDown={(e) => e.stopPropagation()}>
               <button
@@ -1617,6 +1621,16 @@ export default function App() {
                     <span>Alignment Grid</span>
                     <span>{showGrid ? '✓' : ''}</span>
                   </div>
+                  <div
+                    className="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center justify-between"
+                    onClick={() => {
+                      soundFx.playClick();
+                      setShowCrtScanlines((s) => !s);
+                    }}
+                  >
+                    <span>Retro CRT Scanlines</span>
+                    <span>{showCrtScanlines ? '✓' : ''}</span>
+                  </div>
                   <div className="border-t border-[#808080] my-1"></div>
                   <div
                     className="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center justify-between"
@@ -1726,7 +1740,7 @@ export default function App() {
               </button>
               <button
                 type="button"
-                className={`win-button px-3 py-1 font-bold text-xs flex items-center gap-1.5 ${isPlaying ? 'active bg-[#e0e0e0]' : ''}`}
+                className={`win-button px-3 py-1 font-bold text-xs flex items-center gap-1.5 ${isPlaying ? 'active' : ''}`}
                 onClick={() => {
                   soundFx.playClick();
                   setIsPlaying((p) => !p);
@@ -2384,17 +2398,17 @@ export default function App() {
               </div>
 
               {/* Filmstrip Timeline */}
-              <div className="h-22 bg-[#c0c0c0] border-t border-[#808080] p-1 flex flex-col shrink-0">
-                <div className="flex-1 win-inset bg-[#2b2b2b] p-1 flex items-center gap-2 overflow-x-auto">
+              <div className="h-26 bg-[#c0c0c0] border-t border-[#808080] p-1 flex flex-col shrink-0">
+                <div className="flex-1 win-inset filmstrip-track px-2 flex items-center gap-2 overflow-x-auto">
                   {frames.map((frame, index) => {
                     const isActive = index === activeFrameIndex;
                     return (
                       <div
                         key={frame.id}
-                        className={`relative shrink-0 flex flex-col items-center cursor-pointer p-1 rounded-sm ${
+                        className={`relative shrink-0 flex flex-col items-center cursor-pointer p-1 ${
                           isActive
                             ? 'bg-[#000080] text-white ring-2 ring-[#ffff00]'
-                            : 'bg-[#505050] text-gray-200 hover:bg-[#606060]'
+                            : 'bg-[#383838] text-gray-200 hover:bg-[#4a4a4a] border border-black'
                         }`}
                         onClick={() => {
                           if (isPlaying) setIsPlaying(false);
@@ -2423,7 +2437,7 @@ export default function App() {
 
                   <button
                     type="button"
-                    className="shrink-0 w-14 h-14 win-button flex flex-col items-center justify-center gap-0.5 font-bold text-gray-700 hover:text-black"
+                    className="shrink-0 w-14 h-14 win-button flex flex-col items-center justify-center gap-0.5 font-bold"
                     onClick={handleAddFrame}
                     title="Add new frame"
                   >
@@ -2795,8 +2809,8 @@ export default function App() {
         >
           <div className="w-8 bg-gradient-to-t from-[#000080] to-[#1084d0] flex items-end justify-center pb-2 select-none">
             <span
-              className="text-white font-bold text-sm tracking-widest uppercase transform -rotate-90 origin-bottom-left whitespace-nowrap mb-6 ml-5"
-              style={{ textShadow: '1px 1px 2px #000' }}
+              className="font-retro-pixel text-white font-bold text-base tracking-widest uppercase transform -rotate-90 origin-bottom-left whitespace-nowrap mb-6 ml-5"
+              style={{ textShadow: '1px 1px 0px #000' }}
             >
               Windows 95
             </span>
@@ -2921,7 +2935,7 @@ export default function App() {
           <button
             type="button"
             className={`win-button h-5.5 px-2 flex items-center gap-1.5 text-xs max-w-48 truncate ${
-              !isMinimized && isWindowActive ? 'active font-bold bg-[#e0e0e0]' : ''
+              !isMinimized && isWindowActive ? 'active font-bold' : ''
             }`}
             onClick={() => {
               soundFx.playClick();
